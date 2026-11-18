@@ -398,15 +398,28 @@ function startRound() {
   startTimer();
 }
 
+
 function animate() {
-  animationId=requestAnimationFrame(animate);
-  const delta=Math.min(clock.getDelta(),0.04);
-  if(gameActive) movePlayer(delta);
-  if(treasure) treasure.rotation.y += delta*0.45;
-  if(treasure) treasure.position.y=0.08+Math.sin(performance.now()*0.002)*0.08;
-  if(player) updateCamera(delta);
-  if(renderer && scene && camera) renderer.render(scene,camera);
+  animationId = requestAnimationFrame(animate);
+
+  // انتظر إنشاء محرك Three.js
+  if (!clock || !renderer || !scene || !camera) return;
+
+  const delta = Math.min(clock.getDelta(), 0.04);
+
+  if (gameActive) movePlayer(delta);
+
+  if (treasure) {
+    treasure.rotation.y += delta * 0.45;
+    treasure.position.y =
+      0.08 + Math.sin(performance.now() * 0.002) * 0.08;
+  }
+
+  if (player) updateCamera(delta);
+
+  renderer.render(scene, camera);
 }
+
 
 
 function beginWorld(key) {
