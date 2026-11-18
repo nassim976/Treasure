@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#08131c">
+  <title>Treasure Hunters 3D | NASSIM BOURARA</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-gem">◆</span>
+        <div>
+          <strong>TREASURE HUNTERS</strong>
+          <small>صيادو الكنوز: الفخ الأخير</small>
+        </div>
+      </div>
+      <div class="top-status"><span class="status-dot"></span><span id="connection-label">وضع تجريبي محلي</span></div>
+    </header>
+
+    <main>
+      <section id="home-screen" class="screen active">
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <span class="eyebrow">مغامرة ثلاثية الأبعاد • لاعب ضد لاعب</span>
+            <h1>هل ستعثر على الكنز؟<br><em>أم تقع في الفخ الأخير؟</em></h1>
+            <p>استكشف عوالم غامضة، تفادَ الفخاخ، ونافس صديقك في سباق مع الزمن.</p>
+            <button id="start-button" class="btn btn-gold">ابدأ المغامرة <span>←</span></button>
+            <button id="how-button" class="btn btn-ghost">كيف تلعب؟</button>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+            <div class="hero-crystal">◆</div>
+            <div class="hero-caption">THE ULTIMATE TRAP</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div><b>03</b><span>عوالم قابلة للاستكشاف</span></div>
+          <div><b>180</b><span>ثانية لكل جولة</span></div>
+          <div><b>1 VS 1</b><span>تحدٍّ بين صديقين</span></div>
+        </div>
+        <div class="signature">تصميم وتطوير <strong>NASSIM BOURARA</strong></div>
+      </section>
+
+      <section id="map-screen" class="screen">
+        <div class="section-head">
+          <span class="eyebrow">اختر وجهتك</span>
+          <h2>ثلاثة عوالم، وثلاثة أخطار</h2>
+          <p>اختر الخريطة لبدء تجربة الاستكشاف.</p>
+        </div>
+        <div class="world-grid">
+          <button class="world-card jungle" data-world="jungle">
+            <span class="world-number">العالم 01</span><span class="world-icon">🌿</span>
+            <strong>غابات الأمازون</strong><small>أدغال كثيفة • أطلال • مستنقعات</small>
+            <span class="world-cta">استكشف العالم ←</span>
+          </button>
+          <button class="world-card tomb" data-world="tomb">
+            <span class="world-number">العالم 02</span><span class="world-icon">🏺</span>
+            <strong>المقابر الفرعونية</strong><small>معابد حجرية • ممرات • مصائد</small>
+            <span class="world-cta">استكشف العالم ←</span>
+          </button>
+          <button class="world-card atlantis" data-world="atlantis">
+            <span class="world-number">العالم 03</span><span class="world-icon">🌊</span>
+            <strong>أطلنطس الغارقة</strong><small>مدينة مغمورة • شعاب • آثار</small>
+            <span class="world-cta">استكشف العالم ←</span>
+          </button>
+        </div>
+        <button class="btn btn-ghost back-home">العودة للرئيسية</button>
+      </section>
+
+      <section id="how-screen" class="screen">
+        <div class="section-head"><span class="eyebrow">دليل المغامر</span><h2>كيف تلعب؟</h2></div>
+        <div class="rules-grid">
+          <article><span>🧭</span><h3>المستكشف</h3><p>تحرك داخل العالم وابحث عن الكنز قبل انتهاء 3 دقائق.</p></article>
+          <article><span>😈</span><h3>المعرقل</h3><p>راقب المستكشف وضع الفخاخ في طريقه. في هذه النسخة التجريبية يمكنك تجربة دور المعرقل محلياً.</p></article>
+          <article><span>🏆</span><h3>تبادل الأدوار</h3><p>يتبادل اللاعبان الأدوار بعد كل جولة. يفوز صاحب أكبر عدد من الانتصارات.</p></article>
+        </div>
+        <p class="hint">التحكم: W A S D أو الأسهم للحركة، والماوس لتدوير الكاميرا. على الهاتف استخدم عصا التحكم الظاهرة.</p>
+        <button class="btn btn-ghost back-home">العودة للرئيسية</button>
+      </section>
+
+      <section id="game-screen" class="screen game-screen">
+        <div class="game-top">
+          <div><small id="world-name">غابات الأمازون</small><strong id="role-name">المستكشف</strong></div>
+          <div class="timer" id="timer">03:00</div>
+          <div class="round-info">الجولة <b id="round-number">1</b> / 6</div>
+        </div>
+        <div class="game-layout">
+          <div class="viewport-wrap">
+            <div id="game-viewport"></div>
+            <div class="viewport-overlay">
+              <span id="objective">اعثر على الكنز الذهبي</span>
+              <span id="world-weather">بيئة استكشافية</span>
+            </div>
+            <div class="crosshair">+</div>
+          </div>
+          <aside class="game-sidebar">
+            <div class="side-card">
+              <span class="side-label">حالة المهمة</span>
+              <strong id="mission-status">ابحث عن الكنز</strong>
+              <div class="progress-track"><div id="time-progress"></div></div>
+              <small>الوقت المتبقي</small>
+            </div>
+            <div class="side-card">
+              <span class="side-label">أدوات المعرقل</span>
+              <strong id="trap-count">5 فخاخ</strong>
+              <button id="trap-button" class="btn btn-trap">زرع فخ قريب</button>
+              <small>زرع الفخاخ متاح في دور المعرقل فقط.</small>
+            </div>
+            <div class="side-card score-card">
+              <span class="side-label">النتيجة</span>
+              <div>المستكشف <b id="explorer-score">0</b></div>
+              <div>المعرقل <b id="saboteur-score">0</b></div>
+            </div>
+            <button id="leave-button" class="btn btn-ghost btn-full">إنهاء التجربة</button>
+          </aside>
+        </div>
+        <div class="mobile-controls">
+          <div class="joystick">
+            <button data-move="forward" aria-label="للأمام">▲</button>
+            <div><button data-move="left" aria-label="يسار">◀</button><button data-move="back" aria-label="للخلف">▼</button><button data-move="right" aria-label="يمين">▶</button></div>
+          </div>
+          <button id="mobile-jump" class="btn btn-ghost">قفز</button>
+        </div>
+        <div class="game-bottom">
+          <span id="game-message">استعد للمغامرة.</span>
+          <button id="next-round-button" class="btn btn-gold hidden">الجولة التالية ←</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-card">
+        <button id="close-modal" class="modal-close">×</button>
+        <span class="eyebrow">نتيجة الجولة</span>
+        <h2 id="modal-title">انتهت الجولة</h2>
+        <p id="modal-text"></p>
+        <button id="modal-next" class="btn btn-gold">متابعة</button>
+      </div>
+    </div>
+
+    <footer>© 2026 TREASURE HUNTERS — <strong>NASSIM BOURARA</strong></footer>
+  </div>
+</body>
+</html>
