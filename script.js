@@ -408,14 +408,23 @@ function animate() {
   if(renderer && scene && camera) renderer.render(scene,camera);
 }
 
+
 function beginWorld(key) {
-  currentWorld=key;
-  buildWorld(key);
-  $("world-name").textContent=worldData[key].title;
-  $("round-number").textContent=round;
+  currentWorld = key;
+
+  // أظهر شاشة اللعب أولاً
   showScreen("game-screen");
-  // انتظر ظهور مساحة العرض قبل ضبط أبعاد WebGL.
-  requestAnimationFrame(()=>{resizeRenderer();startRound();});
+
+  // ابنِ العالم بعد ظهور مساحة العرض
+  requestAnimationFrame(() => {
+    buildWorld(key);
+
+    $("world-name").textContent = worldData[key].title;
+    $("round-number").textContent = round;
+
+    resizeRenderer();
+    startRound();
+  });
 }
 
 $("start-button").addEventListener("click",()=>showScreen("map-screen"));
